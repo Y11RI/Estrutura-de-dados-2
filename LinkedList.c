@@ -45,48 +45,99 @@ int enqueue(LinkedList *list, void *data){
 	log_trace("enqueue <-");
 	
 	return 1;	
-    }
-    return 0;
+    
 }
 
 void* dequeue(LinkedList *list){
-    log_info("Removendo no inicio da fila");
-    log_trace("dequeue ->");
-
-    if(isEmpty(list)){
-        log_info("Não há dados a serem removidos");
-        return NULL;
-    }else{
-        Node *remove = list->first; 
-        list->first = list-> next;
-        void *data = remove->
-    }
-    
-    list->size --;
-    log_info("Dado removido com sucesso");
-
-    log_trace("dequeue <-");
-    return NULL;
+    log_info("Removendo o primeiro dado da fila");
+	log_trace("dequeue ->");
+	if (isEmpty(list)) {
+		log_warn("Não há elementos na fila para serem removidos");
+		return NULL;
+	} else {
+		log_debug("list->first: %p", list->first);
+		Node *aux = list->first;
+		void *data = aux->data;
+		list->first = list->first->next;
+		list->size -= 1;
+		free(aux);
+		log_info("Dado removido com sucesso!");
+		log_debug("Nó removido: %p", aux);		
+		log_debug("data returned: %p", data);
+		log_trace("dequeue <-");
+		return data;
+	}
 }
 
 void* first(LinkedList *list){
-    return NULL;
+    log_info("Buscando o primeiro elemento da lista");
+	log_trace("first ->");
+	if (isEmpty(list)){
+		log_warn("Lista encontra-se vazia!");
+		log_trace("first <-");
+		return NULL;
+	} else {
+		log_debug("first: %p", list->first);
+		log_trace("first <-");
+		return list->first;
+	}
 }
 
 void* last(LinkedList *list){
-    return NULL;
+    log_info("Buscando o último elemento da lista");
+	log_trace("last ->");
+	if (isEmpty(list)){
+		log_warn("Lista encontra-se vazia!");
+		log_trace("last <-");
+		return NULL;
+	} else {
+		Node *aux = list->first;
+		while (aux->next != NULL) {
+			log_debug("(aux,next): (%p, %p)");
+			aux = aux->next;
+		}
+		log_trace("last <-");
+		return aux->data;
+	}
 }
 
 int push(LinkedList *list, void *data){
 
-    return 0;
+    log_info("Adicionando no topo da pilha");
+	log_trace("push ->");
+	Node *no = (Node*)malloc(sizeof(Node));
+	if (no == NULL) {
+		log_debug("no: %p", no);
+		log_error("Memória insuficiente para a operação");
+		log_trace("push <-");
+		return 0;
+	} else {
+		no->data = data;
+		no->next = list->first;
+	}
+	list->first = no;
+	list->size += 1;
+	log_info("Dado inserido com sucesso!");
+	log_debug("no(data,next): %p(%p,%p)", no, no->data, no->next);
+	log_trace("push <-");
+	
+	return 1;	
 }
 
 void* pop(LinkedList *list){
-    return NULL;
+    log_info("Removendo o topo da pilha");
+	log_trace("pop ->");
+	Node *data = dequeue(list);
+	log_trace("pop <-");
+	return data;
 }
 
 void* top(LinkedList *list){
+    log_info("Consultando o topo da pilha");
+	log_trace("top ->");
+	Node *data = first(list);
+	log_trace("top <-");
+	return data;
     return NULL;
 }
 
@@ -109,7 +160,24 @@ bool isEmpty(LinkedList *list){
 }
 int indexOf(LinkedList *list, void *data, compare equal){
 
-    return 0;
+   log_info("Buscando posição do elemento");
+    log_trace("indexOf ->");    
+    if (isEmpty(list)) return -1;
+    int count=0;
+    Node *aux = list->first;
+	log_debug("count, aux = %d, %p", count, aux);
+    while(aux!=NULL && !equal(aux->data,data)) {
+		log_debug("equal: %d", equal(aux->data, data));
+        aux=aux->next;
+        count++;
+		log_debug("count, aux = %d, %p", count, aux);
+    }
+	log_debug("equal: %d", equal(aux->data, data));
+	if (aux == NULL) {
+		log_info("Elemento não foi localizado!");
+	}
+    log_trace("indexOf <-");    
+    return (aux==NULL)?-1:count;
 }
 
 
