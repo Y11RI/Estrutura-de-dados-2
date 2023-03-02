@@ -182,31 +182,72 @@ int indexOf(LinkedList *list, void *data, compare equal){
 
 
 void* getPos(LinkedList *list, int pos){
-
+	log_info("Determinando a posiçao");
 	log_trace("getPos->");
 	Node *aux = getNodeByPos(list,pos);
   if (aux==NULL)
     return NULL;
   else
-    return aux->data;
+  log_trace("getPos <-");
+  log_info("Retornando dado da posição");  
+	return aux->data;
+  
 }
 
 Node* getNodeByPos(LinkedList *list, int pos){
-
+	log_info("Determinando endereço do nó em uma posição da lista");
 	log_trace("getNodeByPos->");
-	if(isEmpty(list) || pos>=list->size) return NULL;
+	if(isEmpty(list) || pos>=list->size) 
+	log_warn("Posição nao encontrada");
+	return NULL;
+	
 	Node *aux = list->first;
+	
 	for(int count =0;(aux!= NULL && count<pos); count++,aux=aux->next);
+	log_trace("getNodeByPos <-");
+	
 	return aux;
+
 }
 
 int add(LinkedList *list, int pos, void *data){
+	log_info("Adicionando um dado a lista");
+	log_trace("add ->");
+	log_info("Verificando se o posição inserida é o inicio");
+	if(pos <=0) 
+	return push(list,data);
+	log_info("Determinando o nó da posição anterior");
+	Node *aux = getNodeByPos(list,pos);
+    if(aux == NULL) 
+	log_warn("Posicao invalida");
+	return -2;
+	log_info("Alocando memoria")
+	Node *newNode =(Node*)malloc(sizeof(Node));
+	if(newNode == NULL) 
+	log_warn("Memoria insuficiente");
+	return -1;
 
-    return 0;
+	newNode->data = data; 
+	newNode-> next = NULL;
+	newNode->next = aux->next;
+	aux-> next = newNode;
+	list->size ++;
+
+	log_trace("add <-");
+	log_info("Dado adicionado com sucesso");
+	return 1;
 }
 int addAll(LinkedList *listDest, int pos, LinkedList *listSource){
-
-    return 0;
+	log_info("Adicionando lista a partir de uma posiçao");
+	log_trace("addAll ->");
+	if(listDest == NULL || isEmpty(listDest))
+	log_warn("Não é possivel prosseguir");
+	return -1;
+	if(listSource == NULL || isEmpty(listSource))
+	log_warn("Não é possivel prosseguir");
+	return -2;
+	
+	return 0;
 }
 
 void* removePos(LinkedList *list, int pos){
