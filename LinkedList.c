@@ -182,13 +182,18 @@ int indexOf(LinkedList *list, void *data, compare equal){
 
 
 void* getPos(LinkedList *list, int pos){
+
+	log_trace("getPos->");
 	Node *aux = getNodeByPos(list,pos);
   if (aux==NULL)
     return NULL;
   else
     return aux->data;
 }
+
 Node* getNodeByPos(LinkedList *list, int pos){
+
+	log_trace("getNodeByPos->");
 	if(isEmpty(list) || pos>=list->size) return NULL;
 	Node *aux = list->first;
 	for(int count =0;(aux!= NULL && count<pos); count++,aux=aux->next);
