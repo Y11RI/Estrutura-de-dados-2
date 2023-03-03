@@ -1,13 +1,18 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include "LinkedList.h"
+#include "DoublyLinkedList.h"
 #include "log.h"
 
 void init(LinkedList *list){
     log_info("inicializando a lista");
     log_trace("init -> ");
-    list-> first = NULL;
-    list-> size = 0;
+    Node *trashNode =(Node*)malloc(sizeof(Node));
+    trashNode->data =NULL;
+    trashNode->previous=trashNode;
+    trashNode->first = trashNode;
+    list->first =trashNode;
+    list->size = 0;
+
     log_debug("list->first: %p", list->first);
     log_debug("list->size: %d", list->size);
     log_trace("list<-");
@@ -17,28 +22,13 @@ void init(LinkedList *list){
 int enqueue(LinkedList *list, void *data){
     log_info("Adicionando no final da fila");
     log_trace("enqueue->");
-    Node no* = (Node*)malloc(sizeof(Node));
-    if(no == NULL){
-        log_debug("no: %p", no);
-        log_error("memoria insuficiente para operaçao");
-        return 0;
-    }else{
-        no-> data = data;
-        no-> next = NULL;
-    }
+    Node newNode* = (Node*)malloc(sizeof(Node));
+    if(newNode == NULL) return -1;
+    newNode->data = data;
+    newNode->next = list->first;
+    newNode->previous = list->first->previous;
 
-    if(isEmpty(list)){
-        list ->first = no;
-    }else{
-        Node *aux = list->first
-        log_debug("(aux, aux->next): (%p, %p)", aux, aux->next);
-		while (aux->next != NULL) {
-			aux = aux->next;
-			log_debug("(aux, aux->next): (%p, %p)", aux, aux->next);
-		}
-		aux->next = no;
-		log_debug("(aux, aux->next): (%p, %p)", aux, aux->next);		
-	}
+    
 	list->size += 1;
 	log_info("Dado inserido com sucesso!");
 	log_debug("no(data,next): %p(%p,%p)", no, no->data, no->next);
@@ -262,4 +252,3 @@ void* removePos(LinkedList *list, int pos){
 bool removeData(LinkedList *list, void *data, compare equal){
 
 }
-
