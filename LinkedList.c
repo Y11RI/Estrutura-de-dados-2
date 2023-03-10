@@ -17,7 +17,7 @@ void init(LinkedList *list){
 int enqueue(LinkedList *list, void *data){
     log_info("Adicionando no final da fila");
     log_trace("enqueue->");
-    Node no* = (Node*)malloc(sizeof(Node));
+    Node *no = (Node*)malloc(sizeof(Node));
     if(no == NULL){
         log_debug("no: %p", no);
         log_error("memoria insuficiente para operaçao");
