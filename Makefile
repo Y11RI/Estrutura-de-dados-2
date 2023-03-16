@@ -37,3 +37,17 @@ clean:
 	rm -f ponteiro
 	@echo Removendo o programa ponteiro duplo
 	rm -f ponteiro_duplo
+
+lista_Generalizada:
+	@echo
+	@echo ==========================
+	@echo      Lista Generalizada
+	@echo ==========================
+	@echo Compilando o programa lista Generalizada
+	gcc GeneralizedLinkedList.c -o lista_Generalizada
+	@echo Tornando o arquivo executável
+	chmod +x lista_Generalizada
+	@echo Executando o programa lista Generalizada
+	@echo ======================================================
+	@echo
+	./lista_Generalizada

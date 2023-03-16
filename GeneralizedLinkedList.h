@@ -1,3 +1,5 @@
+
+
 #ifndef DataStructure_GeneralizedLinkedList_h
 #define DataStructure_GeneralizedLinkedList_h
 #include <stdbool.h>
@@ -16,7 +18,7 @@ int addList(Node **list, Node **subList);
 Node* head(Node *list);
 Node* tail(Node *list);
 void showGeneralizedList(Node *list);
-boolean search(Node *list, int atom);
+//boolean search(Node *list, int atom);
 int depth(Node *list);
 
 #endif
