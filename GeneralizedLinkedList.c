@@ -9,29 +9,46 @@ int addAtom(Node **list, int atom){
         no->type = 0;
         no->atomList.atom = atom;
         no->next = NULL;
-        if(list == NULL)
-         list = &no;
+
+        if(*list == NULL)
+           *list = no;
         else{
-            Node *aux = &list->next;
-            while(aux->next != NULL)
-                aux= aux-> next;
+            //Node *aux =(Node*)malloc(sizeof(Node));
+             Node *aux = NULL;
+             for(aux = *list; aux->next != NULL; aux = aux->next);
+        
+             aux->next = no;
+        }
+
+    return 1;
+}
+int addList(Node **list, Node **subList){
+    Node *no =(Node*)malloc(sizeof(Node));
+    if(no == NULL)return -1;
+        no->type = 1;
+        no->atomList.list = *subList ;
+        no->next = NULL;
+
+        if(*list == NULL)
+           *list = no;
+        else{
+            //Node *aux =(Node*)malloc(sizeof(Node));
+             Node *aux = NULL;
+             for(aux = *list; aux->next != NULL; aux = aux->next)
+                
         aux->next = no;
         }
-    /*if(list -> list!=NULL){
-        Node *aux = (Node*)malloc(sizeof(Node));
-        aux = list->next;
-            while(aux->next!= NULL){
-            aux = aux->next;
-            }
-        aux->next = no;*/
     return 1;
 }
 
-/*void show(Node *list){
-   Node *aux2 = list->next;
-   aux2->type = 1;
-   while(aux2 != list){
-        printf(aux2->atomList.list);
-    aux2 = aux2->next; 
+
+void showGeneralizedList(Node *list){
+   Node *aux3 = list;
+
+   while(aux3->next != NULL){
+        if(aux3->type == 0)
+            printf("%d",aux3->atomList.atom);
+    aux3 = aux3->next;
+     
    }
-}*/
+}

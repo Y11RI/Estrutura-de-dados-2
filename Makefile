@@ -44,7 +44,7 @@ lista_Generalizada:
 	@echo      Lista Generalizada
 	@echo ==========================
 	@echo Compilando o programa lista Generalizada
-	gcc GeneralizedLinkedList.c -o lista_Generalizada
+	gcc  log.c log.h GeneralizedLinkedListTest.c GeneralizedLinkedList.h GeneralizedLinkedList.c -o lista_Generalizada
 	@echo Tornando o arquivo executável
 	chmod +x lista_Generalizada
 	@echo Executando o programa lista Generalizada

@@ -11,8 +11,16 @@ int main() {
     Node *listaGeneralizada = NULL;
     
     printf("Lista: ");
-    showGeneralizedList(listaGeneralizada);
+    //showGeneralizedList(listaGeneralizada);
     addAtom(&listaGeneralizada, 3);
-    //addAtom(&listaGeneralizada, 5);
+    addAtom(&listaGeneralizada, 5);
+
+    //Node *lista2 = NULL;
+    //addAtom(&lista2, 7);
+    //addAtom(&lista2, 9);
+
+    //addList(&listaGeneralizada, &lista2);
+    //addList(&listaGeneralizada, &lista3);
+    showGeneralizedList(listaGeneralizada);
     return 0;
 }
