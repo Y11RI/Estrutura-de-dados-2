@@ -41,13 +41,17 @@ int addList(Node **list, Node **subList){
     return 1;
 }
 
+/*Node* next(Node *list) {
+    return (list)->next;
+}*/
 
 void showGeneralizedList(Node *list){
-   Node *aux3 = list;
-
-   while(aux3->next != NULL){
+   Node *aux3 = ;
+    //aux3 = list;
+   //while(aux3->next != NULL){
+        
         if(aux3->type == 0)
-            printf("%d",aux3->atomList.atom);
+            printf("%d ",aux3->atomList.atom);
     aux3 = aux3->next;
      
    }

@@ -14,7 +14,8 @@ int main() {
     //showGeneralizedList(listaGeneralizada);
     addAtom(&listaGeneralizada, 3);
     addAtom(&listaGeneralizada, 5);
-
+    addAtom(&listaGeneralizada, 6);
+    addAtom(&listaGeneralizada, 7);
     //Node *lista2 = NULL;
     //addAtom(&lista2, 7);
     //addAtom(&lista2, 9);

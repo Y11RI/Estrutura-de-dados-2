@@ -37,6 +37,8 @@ clean:
 	rm -f ponteiro
 	@echo Removendo o programa ponteiro duplo
 	rm -f ponteiro_duplo
+	@echo Removendo o programa lista generalizada
+	rm -f lista_Generalizada
 
 lista_Generalizada:
 	@echo
