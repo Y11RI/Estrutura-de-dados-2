@@ -53,3 +53,18 @@ lista_Generalizada:
 	@echo ======================================================
 	@echo
 	./lista_Generalizada
+
+hash:
+	@echo
+	@echo ==========================
+	@echo      HASH
+	@echo ==========================
+	@echo Compilando o programa Hash
+	gcc   DoublyLinkedListTest.c DoublyLinkedList.c DoublyLinkedList.h Hash.c Hash.h HashTest.c -o hash
+	@echo Tornando o arquivo executável
+	chmod +x hash
+	@echo Executando o programa Hash
+	@echo ======================================================
+	@echo
+	./hash
+
