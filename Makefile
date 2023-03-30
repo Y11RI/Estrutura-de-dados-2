@@ -39,6 +39,38 @@ clean:
 	rm -f ponteiro_duplo
 	@echo Removendo o programa lista generalizada
 	rm -f lista_Generalizada
+	@echo Removendo o programa lista ligada
+	rm -f lista_ligada
+	@echo Removendo o programa lista ligada
+	rm -f lista_duplamente_ligada
+
+lista_ligada:
+	@echo
+	@echo ==========================
+	@echo      Lista Ligada
+	@echo ==========================
+	@echo Compilando o programa lista ligada
+	gcc  log.c log.h LinkedListTest.c LinkedList.h LinkedList.c -o lista_ligada
+	@echo Tornando o arquivo executável
+	chmod +x lista_ligada
+	@echo Executando o programa lista ligada
+	@echo ======================================================
+	@echo
+	./lista_ligada
+
+lista_duplamente_ligada:
+	@echo
+	@echo ==========================
+	@echo      Lista Duplamente ligada
+	@echo ==========================
+	@echo Compilando o programa lista duplamente ligada
+	gcc  log.c log.h DoublyLinkedListTest.c DoublyLinkedList.h DoublyLinkedList.c -o lista_duplamente_ligada
+	@echo Tornando o arquivo executável
+	chmod +x lista_duplamente_ligada
+	@echo Executando o programa lista duplamente ligada
+	@echo ======================================================
+	@echo
+	./lista_duplamente_ligada
 
 lista_Generalizada:
 	@echo

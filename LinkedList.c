@@ -14,38 +14,21 @@ void init(LinkedList *list){
 }
 
 
-int enqueue(LinkedList *list, void *data){
-    log_info("Adicionando no final da fila");
-    log_trace("enqueue->");
-    Node *no = (Node*)malloc(sizeof(Node));
-    if(no == NULL){
-        log_debug("no: %p", no);
-        log_error("memoria insuficiente para operaçao");
-        return 0;
-    }else{
-        no-> data = data;
-        no-> next = NULL;
-    }
-
-    if(isEmpty(list)){
-        list ->first = no;
-    }else{
-        Node *aux = list->first
-        log_debug("(aux, aux->next): (%p, %p)", aux, aux->next);
-		while (aux->next != NULL) {
-			aux = aux->next;
-			log_debug("(aux, aux->next): (%p, %p)", aux, aux->next);
-		}
-		aux->next = no;
-		log_debug("(aux, aux->next): (%p, %p)", aux, aux->next);		
-	}
-	list->size += 1;
-	log_info("Dado inserido com sucesso!");
-	log_debug("no(data,next): %p(%p,%p)", no, no->data, no->next);
-	log_trace("enqueue <-");
-	
-	return 1;	
-    
+int enqueue(LinkedList *list, void *data) {
+  Node *newNode = (Node*)malloc(sizeof(Node));
+  if (newNode==NULL) return -1;
+  newNode->data = data;
+  newNode->next = NULL;
+  if (isEmpty(list)) //se a lista estiver vazia
+    list->first = newNode; //novo nó é o primeiro
+  else {
+    Node *aux = list->first; //aux aponta para o primeiro
+    while (aux->next != NULL) //enquanto não for o último nó
+      aux = aux->next; //aux avança para o nó seguinte
+    aux->next = newNode; //último nó aponta para o novo nó
+  }
+  list->size++;
+  return 1;
 }
 
 void* dequeue(LinkedList *list){
@@ -159,7 +142,6 @@ bool isEmpty(LinkedList *list){
     }
 }
 int indexOf(LinkedList *list, void *data, compare equal){
-
    log_info("Buscando posição do elemento");
     log_trace("indexOf ->");    
     if (isEmpty(list)) return -1;
@@ -210,33 +192,20 @@ Node* getNodeByPos(LinkedList *list, int pos){
 
 }
 
-int add(LinkedList *list, int pos, void *data){
-	log_info("Adicionando um dado a lista");
-	log_trace("add ->");
-	log_info("Verificando se o posição inserida é o inicio");
-	if(pos <=0) 
-	return push(list,data);
-	log_info("Determinando o nó da posição anterior");
-	Node *aux = getNodeByPos(list,pos);
-    if(aux == NULL) 
-	log_warn("Posicao invalida");
-	return -2;
-	log_info("Alocando memoria")
-	Node *newNode =(Node*)malloc(sizeof(Node));
-	if(newNode == NULL) 
-	log_warn("Memoria insuficiente");
-	return -1;
-
-	newNode->data = data; 
-	newNode-> next = NULL;
-	newNode->next = aux->next;
-	aux-> next = newNode;
-	list->size ++;
-
-	log_trace("add <-");
-	log_info("Dado adicionado com sucesso");
-	return 1;
+int add(LinkedList *list, int pos, void *data) {
+  if (pos <= 0) return push(list,data);
+  Node *aux = getNodeByPos(list, (pos-1));
+  if (aux==NULL) return -2;
+  Node *newNode = (Node*) malloc(sizeof(Node));
+  if (newNode==NULL) return -1;
+  newNode->data = data;
+  newNode->next = NULL;
+  newNode->next = aux->next;
+  aux->next = newNode;
+  list->size++;
+  return 1;
 }
+
 int addAll(LinkedList *listDest, int pos, LinkedList *listSource){
 	log_info("Adicionando lista a partir de uma posiçao");
 	log_trace("addAll ->");
@@ -247,19 +216,63 @@ int addAll(LinkedList *listDest, int pos, LinkedList *listSource){
 	log_warn("Não é possivel prosseguir");
 	return -2;
 	
-	Node *last == NULL;
-	for(last = listSource->first; last->next != NULL; last = last->next);
-	if(pos == 0 ){
-		last-> next = listDe
-	}
-	return 0;
+	Node *last = NULL;
+    for (last = listSource->first;last->next!=NULL;last=last->next);
+    if (pos == 0) {
+        last->next = listDest->first;
+        listDest->first = listSource->first;
+    } else {
+        Node *aux = getNodeByPos(listDest, (pos-1));
+        if (aux==NULL) return -3;        
+        last->next = aux->next; 
+        aux->next = listSource->first;
+    }
+    listDest->size+=listSource->size;
+    return listSource->size;
 }
 
-void* removePos(LinkedList *list, int pos){
-    return NULL;
+void* removePos(LinkedList *list, int pos) {
+  if (isEmpty(list) || pos>=list->size) return NULL;
+  Node *nodeRemove = NULL;
+  Node *aux = NULL;
+  if (pos<=0)
+    return dequeue(list);
+  else
+    aux = getNodeByPos(list, pos-1);
+  nodeRemove = aux->next;
+  aux->next = nodeRemove->next;
+  void* dataRemove = nodeRemove->data;
+  free(nodeRemove);
+  list->size--;
+  return dataRemove;
 }
 
-bool removeData(LinkedList *list, void *data, compare equal){
+bool removeData(LinkedList *list, void *data, compare equal) {
+    if (isEmpty(list)) return -1;
 
+    Node *nodeRemove = NULL;
+    if (equal(list->first->data,data)) {
+        nodeRemove = list->first;
+        list->first = list->first->next;
+        free(nodeRemove->data);
+        free(nodeRemove);
+        list->size--;
+        return true;
+    } else {
+        Node *aux = list->first;
+        while(aux->next!=NULL && !equal(aux->next->data,data))
+            aux=aux->next;
+
+        if (aux->next!=NULL) {
+            Node *nodeRemove = aux->next;
+            aux->next = nodeRemove->next;
+            free(nodeRemove->data);
+            free(nodeRemove);
+            list->size--;
+            return true;
+        } else {
+            return false;
+        }
+    }
 }
 
