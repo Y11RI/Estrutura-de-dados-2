@@ -43,6 +43,8 @@ clean:
 	rm -f lista_ligada
 	@echo Removendo o programa lista ligada
 	rm -f lista_duplamente_ligada
+	@echo Removendo o programa hash
+	rm -f hash 
 
 lista_ligada:
 	@echo
@@ -92,10 +94,10 @@ hash:
 	@echo      HASH
 	@echo ==========================
 	@echo Compilando o programa Hash
-	gcc   DoublyLinkedListTest.c DoublyLinkedList.c DoublyLinkedList.h Hash.c Hash.h HashTest.c -o hash
+	gcc   DoublyLinkedList.c DoublyLinkedList.h Hash.c Hash.h HashTest.c -o hash
 	@echo Tornando o arquivo executável
 	chmod +x hash
-	@echo Executando o programa Hash
+	@echo Executando o programa hash
 	@echo ======================================================
 	@echo
 	./hash
