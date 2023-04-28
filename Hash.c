@@ -11,9 +11,9 @@ void initHash(HashStruct *hashStruct) {
     hashStruct->size = 0;
 }
 
-/*bool isHashEmpty(HashStruct *hashStruct) {
+bool isHashEmpty(HashStruct *hashStruct) {
     return hashStruct->size==0;
-}*/
+}
 
 int hash(char *key) {
     int sum = 0;
