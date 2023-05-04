@@ -5,7 +5,7 @@
 
 void initHash(HashStruct *hashStruct) {
     for (int i=0;i<MAX;i++) {
-        //chamando init de DoublyLinkedList para inicializar cada lista do vetor
+    //chamando init de DoublyLinkedList para inicializar cada lista do vetor
         init(&(hashStruct->hashes[i]));
     }
     hashStruct->size = 0;
@@ -25,8 +25,8 @@ int hash(char *key) {
     return sum%MAX; //retorna o resto da divisão
 }
 
-int put(HashStruct *hashStruct, char *key, void *data) {
-    if (!containsKey(hashStruct, key)) {
+int put(HashStruct *hashStruct, char *key, void *data, compare equal){
+    if (!containsKey(hashStruct, key)){
         //adiciona na fila que está na posição devolvida pela função hash
         int res = enqueue(&hashStruct->hashes[hash(key)],data);
         //incrementa a qtde de elementos baseado na quantidade inserida por enqueue
@@ -63,11 +63,34 @@ void* removeKey(HashStruct *hashStruct, char *key) {
     return result;
 }
 
-void showHashStruct(HashStruct *hashStruct) {
+void showHashStruct(HashStruct *hashStruct, printNode print) {
     printf("There are %d elements in the Hash\n\n",hashStruct->size);
     for (int i=0; i < MAX; i++) {
         printf("Hash %d has %d elements: ",i,hashStruct->hashes[i].size);
-        show(&hashStruct->hashes[i]);
+        show(&hashStruct->hashes[i],print);
         printf("\n");
     }
+}
+int Mcolisao(HashStruct *hashStruct){
+    int i=0,j=0;
+    while(i != MAX){
+        if(hashStruct->hashes[i].size>j){
+            j=hashStruct->hashes[i].size;
+        }
+    i++;
+    }
+    return j;
+}
+void gravacao(HashStruct *hashStruct, int c){
+    FILE *grav = fopen("gravacao.ppm","w");
+    if(grav == NULL){
+        printf("arquivo de gravacao nao abriu!!!");
+    }else{
+    fprintf(grav,"P3/n 3 3/n 255/n");
+        for(int i = 0; i<MAX; i++){
+            fprintf(grav," 0 0 %d ",c*hashStruct->hashes[i].size);
+            
+        }
+        fclose(grav);
+}
 }
