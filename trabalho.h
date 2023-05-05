@@ -1,7 +1,7 @@
 #ifndef EstruturaDeDados_Hash_h
 #define EstruturaDeDados_Hash_h
-#include "DoublyLinkedList2.h"
-#define MAX 9
+#include "DoublyLinkedList.h"
+#define MAX 1025
 
 typedef struct HashStruct {
     DoublyLinkedList hashes[MAX];
