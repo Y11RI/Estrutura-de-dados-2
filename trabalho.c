@@ -86,9 +86,9 @@ void gravacao(HashStruct *hashStruct, int c){
     if(grav == NULL){
         printf("arquivo de gravacao nao abriu!!!");
     }else{
-    fprintf(grav,"P3/n 3 3/n 255/n");
+    fprintf(grav,"P3 30 30 255");
         for(int i = 0; i<MAX; i++){
-            fprintf(grav," 0 0 %d ",c*hashStruct->hashes[i].size);
+            fprintf(grav," %d 0 0 ",c*hashStruct->hashes[i].size);
             
         }
         fclose(grav);

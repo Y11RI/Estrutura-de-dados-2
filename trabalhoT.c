@@ -2,7 +2,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include "trabalho.h"
-#define TAM 1025
+#define TAM 100
 //#define MAX 3225
     typedef struct Words {
     char letras[50];
@@ -65,10 +65,10 @@ int main() {
     
         printf("%d",Mcolisao(&hashes));
         
-    //int c = 256/Mcolisao(&hashes);
+    int c = 256/Mcolisao(&hashes);
 
-    //printf("%d",Mcolisao(&hashes));
-    //gravacao(&hashes, c);
+    printf("%d",Mcolisao(&hashes));
+    gravacao(&hashes, c);
 
 fclose(arq); // função que fecha o arquivo
 
