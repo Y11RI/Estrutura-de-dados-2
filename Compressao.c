@@ -3,9 +3,10 @@
 #include <string.h>
 
 typedef struct letras{
-char simbolo[256];
-int freq;
-
+    //simbolo{
+    char caracter[256];
+    int qtd;
+    //}Simbolo;
 }LETRAS;
 
  int stlen(char * str){
@@ -16,7 +17,7 @@ int freq;
             }
 
 int main() {
-    char arquivo[50],a=0,e=0,i=0,o=0,u=0;
+    char arquivo[50];//,a=0,e=0,i=0,o=0,u=0;
     char c;
     char *dados;
     char result[100];
@@ -33,8 +34,21 @@ int main() {
         
          while(!feof(arq)){
             dados = fgets(result,100,arq);
-            int tamanho = strlen(dados);
-            printf("%d\n",tamanho);
+
+            //int tamanho = strlen(dados);
+            //printf("%d",tamanho);
+            
+            for (int i=0;dados[i]!='\0';i++){
+                for(int j=33;j<=256;j++){
+                    if(dados[i]== j){
+                    
+                         LETRAS *L = (LETRAS*)malloc(sizeof(LETRAS)); 
+                         strcpy(L->caracter,dados);
+                         L->qtd++;
+                    }
+                }
+            }
+           // printf("%d\n",tamanho);
             //printf("%d",total);
             //printf("%s",dados);
             /*do{
