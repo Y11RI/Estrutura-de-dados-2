@@ -2,10 +2,10 @@
 #include <stdlib.h>
 #include <string.h>
 
-typedef struct LETRAS{
-        char caracter[256];
+//typedef struct LETRAS{
+       // char caracter[256];
         int qtd[256];
-}LETRAS;
+//}LETRAS;
 
 /* int stlen(char * str){
     int total =0;
@@ -17,80 +17,76 @@ typedef struct LETRAS{
 int main() {
     char arquivo[50];
     char c;
-    char result[100];
+    int ALFABETO[256];
+    //char result[100];
     int cont = 0;
     int v = 1;
     printf("Insira o arquivo texto que será lido: ");
     scanf("%s",arquivo);
     FILE *arq = fopen(arquivo, "r");
-    LETRAS *data = (LETRAS*)malloc(sizeof(LETRAS));
 
     if(arq == NULL){
         printf("arquivo de palavras vazio");
     }
     else{
-        
+        for(int i = 0;i<=256;i++){
+        ALFABETO[i]= 0;
+        }
+
           while( (c=fgetc(arq))!= EOF ){ // pega caracter por caracter do arquivo
+            
+            for(int i = 0;i<=256;i++){
+                if(c == i){
+                    ALFABETO[i]++;
+                    //printf("%d",ALFABETO[i]);
+                    //printf("\n");
+                }
+            }
+        
+            
             //putchar(c);
+           // LETRAS *data = (LETRAS*)malloc(sizeof(LETRAS));
             
-            
-            if(cont==0){
-                   //alocamento de espaço na memoria
-                data->caracter[0] = c; //fgets(result,100,arq);
+           /* if(cont==0){
+                data->caracter[0] = c; 
                 data->qtd[0] = 1;
                 
                 cont=1;
-            }else{
+                //printf("%d",data->qtd[0]);
+                //printf("%c",data->caracter[0]);
+            }*/
+            /*if(cont!= 0){
                 for(int i=0; i<256 ;i++){
-                    if(data->caracter[i]== c){
+                    if(data->caracter[i] == c){
+                        
                         if(data->qtd[i] == 0){
-                            data->qtd[i] = 1;
+                             data->qtd[i] = 1;
                         }else{
-                            return data->qtd[i]++;
-                             
+                            data->qtd[i]++; 
                         }
                         cont = 1;
-                        //v = 0;
                     }
+
+                    if(data->caracter[i]!= c){
+                        if(data->qtd[i] == 0){
+                             data->qtd[i] = 1;
+                        }else{
+                            data->qtd[i]++; 
+                        }
+                        cont = 1;
+                    }
+
 
                 }
 
+            }*/
 
-
-                /*if(v == 1){
-                    LETRAS *data = (LETRAS*)malloc(sizeof(LETRAS));   
-                    c = data->caracter[0];
-                    data->qtd++;
-                    cont++;
-                    v = 1;
-                }*/
-
-            }
-
-             /*while(data != NULL){
-                switch(data){
-                    case 65:
-                        data-> caracter[65];
-                        qtd++;
-                        break;                
-                        
-                    case 69:
-                       data-> caracter[69];
-                         qtd++;
-                        break;
-
-                    case 73:
-                        data-> caracter[73];
-                        qtd++;
-                    
-                }*/
-         
-
-
-
-
-
-
+            /*for(int j=0; j<2;j++){
+                printf("\n");
+                printf("Letra: %c",data->caracter[j]);
+                printf("\n");
+                printf("numero de repetições: %d",data->qtd[j]);
+            }*/
 
             //int tamanho = strlen(dados);
             //printf("%d",tamanho);
@@ -105,34 +101,20 @@ int main() {
                     }
                 }
             }*/
-           // printf("%d\n",tamanho);
-            //printf("%d",total);
-            //printf("%s",dados);
-            /*do{
-                c = getc(dados);
-                switch(c){
-                case a:
-                    a++;
-                    break;
-                case e:
-                    e++;
-                    break;
-                case i:
-                    i++;
-                    break;
-                case o:
-                    o++;
-                    break;
-                case u:
-                    u++;
-                    break;
-                }
-            }while(c!= "\n");
-        }
+        
+        
          
-    */
+    
 
     }
-    printf("%c",data->caracter[1]);
+    
+
     }
+    for(int j = 0;j<256;j++){
+                if(ALFABETO[j]!= 0){
+                    printf("LETRA:" "%c "  "FREQUENCIA: %d",j,ALFABETO[j]);
+                    printf("\n");
+                
+            }
+}
 }
